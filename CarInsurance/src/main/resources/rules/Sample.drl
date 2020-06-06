@@ -1,0 +1,94 @@
+package com.sample
+ 
+import com.sample.Car;
+ 
+
+rule "Rule01"
+    when
+    c : Car(motorPower<=40 && baseInsurance==0)
+    then
+    c.setBaseInsurance(10000);
+    update(c);
+end
+ 
+rule "Rule02"
+    when
+    c : Car(motorPower>40 && motorPower<=50 && baseInsurance==0)
+    then
+    c.setBaseInsurance(11000);
+    update(c);
+end
+
+rule "Rule03"
+    when
+    c : Car(motorPower>50 && motorPower<=75 && baseInsurance==0)
+    then
+    c.setBaseInsurance(15000);
+    update(c);
+end
+
+rule "Rule04"
+    when
+    c : Car(motorPower>75 && baseInsurance==0)
+    then
+    c.setBaseInsurance(25000);
+    update(c);
+end
+
+rule "Rule05"
+    when
+    c : Car(firstRegistration==true && newPremiumGrade==0)
+    then
+    c.setNewPremiumGrade(4);
+    update(c);
+end
+
+rule "Rule06"
+    when
+    c : Car(firstRegistration==false && newPremiumGrade==0 &&
+    carAccidentAmount==0)
+    then
+    if(c.getOldPremiumGrade()==1) 
+     	c.setNewPremiumGrade(1);
+    else
+    	c.setNewPremiumGrade(c.getOldPremiumGrade()-1);
+    update(c);
+end
+
+rule "Rule07"
+    when
+    c : Car(firstRegistration==false && newPremiumGrade==0 &&
+    carAccidentAmount!=0)
+    then
+    int value = c.getOldPremiumGrade()+3*c.getCarAccidentAmount();
+    if(value>12) c.setNewPremiumGrade(12);
+    	else c.setNewPremiumGrade(value);
+    update(c);
+end
+
+rule "Rule08"
+    when
+    c : Car(newPremiumGrade!=0 && newPremiumGrade<=4 && finishedCalculation==false)
+    then
+    c.setFinalInsurance(
+    c.getBaseInsurance()*(0.8+c.getNewPremiumGrade()*0.05));
+    c.setFinishedCalculation(true);
+    update(c);
+end
+
+rule "Rule09"
+    when
+    c : Car(newPremiumGrade!=0 && newPremiumGrade>=5 && finishedCalculation==false)
+    then
+    c.setFinalInsurance(
+    c.getBaseInsurance()*(0.2*c.getNewPremiumGrade()+0.1));
+    c.setFinishedCalculation(true);
+    update(c);
+end
+
+
+
+	
+
+
+
