@@ -15,12 +15,12 @@ public class DroolsTest {
     	    KieContainer kContainer = ks.getKieClasspathContainer();
         	KieSession kSession = kContainer.newKieSession("ksession-rules");
 
-        	Klima k = new Klima();
+        	AirConditioner k = new AirConditioner();
            
-        	k.setKvadratura(78);
-        	k.setGrejanjeViseProstorija(true);
-        	k.setZimiZaGrejanjeIspodMinus5(false);
-        	k.setMogucnostUgradnjeUZid(true);
+        	k.setSquaredMeters(78);
+        	k.setHeatingMultipleRooms(true);
+        	k.setHeatingBelowMinus5(false);
+        	k.setWallMountingEnabled(true);
             kSession.insert(k);
             
             kSession.fireAllRules();
