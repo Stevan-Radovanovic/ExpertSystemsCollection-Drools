@@ -1,0 +1,11 @@
+package com.sample
+ 
+import com.sample.Klima;
+ 
+rule "Hello World"
+    when
+       
+    then
+
+end
+

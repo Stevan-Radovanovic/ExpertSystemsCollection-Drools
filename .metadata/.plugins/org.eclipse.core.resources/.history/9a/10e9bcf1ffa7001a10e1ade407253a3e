@@ -1,0 +1,113 @@
+package com.sample
+ 
+import com.sample.Klima;
+ 
+rule "Pravilo 4"
+    when
+       k: Klima(kvadratura<=50 && grejanjeViseProstorija==false &&
+       snagaKlime==0)
+    then
+		k.setSnagaKlime(9000);
+		update(k)
+end
+
+rule "Pravilo 5"
+    when
+       k: Klima(kvadratura<=50 && grejanjeViseProstorija==true &&
+       snagaKlime==0)
+    then
+		k.setSnagaKlime(12000);
+		update(k);
+end
+
+rule "Pravilo 6"
+    when
+       k: Klima(kvadratura>50 && kvadratura<75 && 
+       grejanjeViseProstorija==false &&
+       snagaKlime==0)
+    then
+		k.setSnagaKlime(12000);
+		update(k);
+end
+
+rule "Pravilo 7"
+    when
+       k: Klima(kvadratura>50 && kvadratura<75 && 
+       grejanjeViseProstorija==true &&
+       snagaKlime==0)
+    then
+		k.setSnagaKlime(18000);
+		update(k);
+end
+
+rule "Pravilo 8"
+    when
+       k: Klima(kvadratura>=75 && 
+       snagaKlime==0)
+    then
+		k.setSnagaKlime(18000);
+		update(k);
+end
+
+rule "Pravilo 9"
+    when
+       k: Klima(grejanjeViseProstorija==false && 
+       mogucnostUgradnjeUZid==false && tipKlime==null)
+    then
+		k.setTipKlime("Pokretni");
+		update(k);
+end
+
+rule "Pravilo 10"
+    when
+       k: Klima(grejanjeViseProstorija==false && 
+       mogucnostUgradnjeUZid==false && tipKlime==null)
+    then
+		k.setTipKlime("Prozorni");
+		update(k);
+end
+
+rule "Podrazumevano"
+    when
+       k: Klima(mogucnostUgradnjeUZid==true && tipKlime==null)
+    then
+		k.setTipKlime("Obicni");
+		update(k);
+end
+
+rule "Pravilo 11-1"
+    when
+       k: Klima((kolikoZaGrejanje=="Podjednako" || 
+       kolikoZaGrejanje=="Pretezno") && inverter==null)
+    then
+		k.setInverter(true);
+		update(k);
+end
+
+rule "Pravilo 11-2"
+    when
+       k: Klima(kolikoZaGrejanje=="Retko" && inverter==null)
+    then
+		k.setInverter(false);
+		update(k);
+end
+
+rule "Pravilo 11-1"
+    when
+       k: Klima(zimiZaGrejanjeIspodMinus5==true && inverter==null)
+    then
+		k.setInverter(true);
+		update(k);
+end
+
+
+
+
+
+
+
+
+
+
+
+
