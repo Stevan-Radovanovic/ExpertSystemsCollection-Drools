@@ -1,0 +1,110 @@
+package com.sample
+ 
+import com.sample.OldNigga;
+
+
+ 
+
+
+ //If it's a female, set the age limit to 63
+rule "Rule 01"
+    when
+      o : OldNigga(gender=="Female" && ageLimit==0)
+    then
+        System.out.println( "Setting Age Limit to 63" );
+		o.setAgeLimit(63);
+        update(o);
+end
+
+//If it's a male, set the age limit to 65
+rule "Rule 02"
+    when
+      o : OldNigga(gender=="Male" && ageLimit==0)
+    then
+        System.out.println( "Setting Age Limit to 65" );
+		o.setAgeLimit(65);
+        update(o);
+end
+
+ //If the age is over the limit, and yearsSpentWorking are more than 40, full pension for pensionType
+ rule "Rule 03"
+    when
+      o : OldNigga(age>=ageLimit && yearsSpentWorking>=40 && pensionType==null)
+    then
+        System.out.println( "Setting Pension Type to Full" );
+		o.setPensionType("Full Pension");
+        update(o);
+end
+
+ //If the age is 5 or less below the limit, and ysw are more than 40, early full pension
+ rule "Rule 04"
+    when
+      o : OldNigga(age>=ageLimit-5 && yearsSpentWorking>=40 && pensionType==null)
+    then
+        System.out.println( "Setting Pension Type to Early Full" );
+		o.setPensionType("Early Full Pension");
+        update(o);
+end
+
+//If the age is 5 or more below the limit, and ysw are less than 40, and has no disability, early full pension
+ rule "Rule 05"
+    when
+      o : OldNigga(age<ageLimit-5 && yearsSpentWorking<40 && pensionType==null && hasDisability==false)
+    then
+        System.out.println( "Setting Pension Type to Early Full" );
+		o.setPensionType("Early Full Pension");
+        update(o);
+end
+
+//If the age is over the limit, ysw less than 40, pension is Old-age
+ rule "Rule 06"
+    when
+      o : OldNigga(age>=ageLimit && yearsSpentWorking<40 && pensionType==null)
+    then
+        System.out.println( "Setting Pension Type to Old Age" );
+		o.setPensionType("Old Age Pension");
+        update(o);
+end
+
+//If the age is 5 or less below the limit, and ysw are less than 40, and has disability, disability pension
+ rule "Rule 07"
+    when
+      o : OldNigga(age>ageLimit-5 && yearsSpentWorking<40 && pensionType==null && hasDisability==true)
+    then
+        System.out.println( "Setting Pension Type to Disability" );
+		o.setPensionType("Disability Pension");
+        update(o);
+end
+
+//Full pensions percent - 70
+ rule "Rule 08"
+    when
+      o : OldNigga((pensionType=="Full Pension" || pensionType=="Early Full Pension") && pensionPercent==0)
+    then
+        System.out.println( "Setting Pension Percent to 70" );
+		o.setPensionPercent(70.0);
+        update(o);
+end
+
+//Old Age pensions percent - ysw*70/40
+rule "Rule 09"
+    when
+      o : OldNigga(pensionType=="Old Age Pension" && pensionPercent==0)
+    then
+        System.out.println( "Setting Pension Percent to ysw*70/40" );
+		o.setPensionPercent(o.getYearsSpentWorking()*70.0/40.0);
+        update(o);
+end
+
+
+//Disability pensions percent 50
+rule "Rule 10"
+    when
+      o : OldNigga(pensionType=="Disability Pension" && pensionPercent==0)
+    then
+        System.out.println( "Setting Pension Percent to 50" );
+		o.setPensionPercent(50.0);
+        update(o);
+end
+
+
