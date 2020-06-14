@@ -1,0 +1,99 @@
+package com.sample
+ 
+import com.sample.Heat;
+ 
+rule "Rule01"
+    when
+    h: Heat(sensitivity == "Very" && heatingType==null)
+    then
+    System.out.println("Setting heating type to centralized");
+    h.setHeatingType("Centralized");
+    update(h);
+end
+
+rule "Rule02"
+    when
+    h: Heat((sensitivity == "So-so" || sensitivity == 'Not') && squareMeters<50 && heatingType==null)
+    then
+    System.out.println("Setting heating type to non-centralized");
+    h.setHeatingType("Non-centralized");
+    update(h);
+end
+
+rule "Rule03"
+    when
+    h: Heat((sensitivity == "So-so" || sensitivity == 'Not') && squareMeters>=50 && heatingType==null)
+    then
+    System.out.println("Setting heating type to centralized");
+    h.setHeatingType("Centralized");
+    update(h);
+end
+
+rule "Rule04"
+    when
+    h: Heat(heatingType=="Centralized" && priceImportant==false && hasGas==true && heatingSystem==null)
+    then
+    System.out.println("Setting heating system to centralized with gas");
+    h.setHeatingSystem("Centralized with gas");
+    update(h);
+end
+
+rule "Rule05"
+    when
+    h: Heat(heatingType=="Centralized" && priceImportant==false && connectedToCityHeatingNetwork==true && heatingSystem==null)
+    then
+    System.out.println("Setting heating system to centralized and connected to the city network");
+    h.setHeatingSystem("Centralized and connected to the city network");
+    update(h);
+end
+
+rule "Rule06"
+    when
+    h: Heat(heatingType=="Centralized" && priceImportant==false && connectedToCityHeatingNetwork==false && hasGas==false && heatingSystem==null)
+    then
+    System.out.println("Setting heating system to centralized with electricity");
+    h.setHeatingSystem("Centralized with electricity");
+    update(h);
+end
+
+rule "Rule07"
+    when
+    h: Heat(heatingType=="Centralized" && priceImportant==true && heatingSystem==null)
+    then
+    System.out.println("Setting heating system to centralized with solid fuels");
+    h.setHeatingSystem("Centralized with solid fuels");
+    update(h);
+end
+
+rule "Rule08"
+    when
+    h: Heat(heatingType=="Non-centralized" && hasElectricity==true && heatingSystem==null)
+    then
+    System.out.println("Setting heating system to non-centralized with electricity");
+    h.setHeatingSystem("Non-entralized with electricity");
+    update(h);
+end
+
+rule "Rule09"
+    when
+    h: Heat(heatingType=="Non-centralized" && hasElectricity==false && heatingSystem==null)
+    then
+    System.out.println("Setting heating system to centralized with solid fuels");
+    h.setHeatingSystem("Non-centralized with solid fuels");
+    update(h);
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
