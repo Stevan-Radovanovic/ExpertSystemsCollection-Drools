@@ -17,10 +17,9 @@ public class DroolsTest {
         	KieSession kSession = kContainer.newKieSession("ksession-rules");
 
         	Car car = new Car();
-        	car.setMotorPower(30);
-        	car.setCarAccidentAmount(54);
-        	car.setOldPremiumGrade(4);
-        	car.setFirstRegistration(false);
+        	
+        	car.setMotorPower(50);
+        	    	
         	
             kSession.insert(car);
             kSession.fireAllRules();

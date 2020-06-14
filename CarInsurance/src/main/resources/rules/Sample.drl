@@ -1,8 +1,124 @@
 package com.sample
  
 import com.sample.Car;
- 
 
+//Insurance price for cars under 40 kw
+rule "Rule01"
+    when
+    c: Car(motorPower<=40 && insurancePrice==0)
+    then
+    System.out.println("Setting Insurance Price to 10000");
+    c.setInsurancePrice(10000);
+    update(c);
+end
+
+//Insurance price for cars between 40 and 50
+rule "Rule02"
+    when
+    c: Car(motorPower>40 && motorPower<=50 && insurancePrice==0)
+    then
+    System.out.println("Setting Insurance Price to 11000");
+    c.setInsurancePrice(11000);
+    update(c);
+end
+
+//Insurance price for cars between 50 and 75 kw
+rule "Rule03"
+    when
+    c: Car(motorPower>50 && motorPower<=75 && insurancePrice==0)
+    then
+    System.out.println("Setting Insurance Price to 15000");
+    c.setInsurancePrice(15000);
+    update(c);
+end
+
+//Insurance price for cars over 75kw
+rule "Rule04"
+    when
+    c: Car(motorPower>75 && insurancePrice==0)
+    then
+    System.out.println("Setting Insurance Price to 25000");
+    c.setInsurancePrice(25000);
+    update(c);
+end
+
+//First registration
+rule "Rule05"
+    when
+    c: Car(oldPremiumGrade==0 && newPremiumGrade==0)
+    then
+    System.out.println("Setting New Premium Grade to 4");
+    c.setNewPremiumGrade(4);
+    update(c);
+end
+
+//Lowering new premium grade
+rule "Rule06"
+    when
+    c: Car(oldPremiumGrade!=0 && newPremiumGrade==0 && accidents==0)
+    then
+    System.out.println("Lowering New Premium Grade");
+    if(c.getOldPremiumGrade()==1) 
+    	c.setNewPremiumGrade(1);
+    else
+    	c.setNewPremiumGrade(c.getOldPremiumGrade()-1);
+    update(c);
+end
+
+//Raising new premium grade
+rule "Rule07"
+    when
+    c: Car(oldPremiumGrade!=0 && newPremiumGrade==0 && accidents!=0)
+    then
+    System.out.println("Raising New Premium Grade");
+    int helperVariable = c.getOldPremiumGrade() + c.getAccidents()*3;
+    if(helperVariable>12) 
+    	c.setNewPremiumGrade(12);
+    else
+    	c.setNewPremiumGrade(helperVariable);
+    update(c);
+end
+
+//Calculating final price #1
+rule "Rule08"
+    when
+    c: Car(finalPrice==0 && newPremiumGrade<=4)
+    then
+    System.out.println("Calculating Final Price");
+    c.setFinalPrice(c.getInsurancePrice()*
+    	(0.8+c.getNewPremiumGrade()*0.05));
+    update(c);
+end
+
+//Calculating final price #2
+rule "Rule09"
+    when
+    c: Car(finalPrice==0 && newPremiumGrade>=5)
+    then
+    System.out.println("Calculating Final Price");
+    c.setFinalPrice(c.getInsurancePrice()*
+    	(0.2*c.getNewPremiumGrade()+0.1));
+    update(c);
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 rule "Rule01"
     when
     c : Car(motorPower<=40 && baseInsurance==0)
@@ -85,7 +201,7 @@ rule "Rule09"
     c.setFinishedCalculation(true);
     update(c);
 end
-
+*/
 
 
 	
