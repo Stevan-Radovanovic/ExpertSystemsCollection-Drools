@@ -15,17 +15,17 @@ public class DroolsTest {
     	    KieContainer kContainer = ks.getKieClasspathContainer();
         	KieSession kSession = kContainer.newKieSession("ksession-rules");
 
-        	AirConditioner k = new AirConditioner();
+        	AirConditioner a = new AirConditioner();
            
-        	k.setSquaredMeters(78);
-        	k.setHeatingMultipleRooms(true);
-        	k.setHeatingBelowMinus5(false);
-        	k.setWallMountingEnabled(true);
-            kSession.insert(k);
+        	a.setHeatingWhenItsColdAsFuck(true);
+        	a.setMultipleRooms(false);
+        	a.setSquareMeters(66);
+        	
+            kSession.insert(a);
             
             kSession.fireAllRules();
             
-           System.out.println(k);
+           System.out.println(a);
         } catch (Throwable t) {
             t.printStackTrace();
         }

@@ -2,73 +2,68 @@ package com.sample;
 
 public class AirConditioner {
 
-	private String airConditionType;
-	private int airConditionPower;
-	private boolean inverter;
-	private int squaredMeters;
-	private boolean heatingMultipleRooms;
-	private boolean wallMountingEnabled;
-	private boolean heatingBelowMinus5;
-	private String heatingUse;
-	
-	public String getAirConditionType() {
-		return airConditionType;
+	private String acType = "Mounted";
+	private int acPower;
+	private int squareMeters;
+	private boolean multipleRooms;
+	private boolean mountable;
+	private boolean hasInverter;
+	private String heatingAmount;
+	private boolean heatingWhenItsColdAsFuck;
+	public String getAcType() {
+		return acType;
 	}
-	public int getAirConditionPower() {
-		return airConditionPower;
+	public int getAcPower() {
+		return acPower;
 	}
-	public boolean isInverter() {
-		return inverter;
+	public int getSquareMeters() {
+		return squareMeters;
 	}
-	public int getSquaredMeters() {
-		return squaredMeters;
+	public boolean isMultipleRooms() {
+		return multipleRooms;
 	}
-	public boolean isHeatingMultipleRooms() {
-		return heatingMultipleRooms;
+	public boolean isMountable() {
+		return mountable;
 	}
-	public boolean isWallMountingEnabled() {
-		return wallMountingEnabled;
+	public boolean isHasInverter() {
+		return hasInverter;
 	}
-	public boolean isHeatingBelowMinus5() {
-		return heatingBelowMinus5;
+	public String getHeatingAmount() {
+		return heatingAmount;
 	}
-	public String getHeatingUse() {
-		return heatingUse;
+	public boolean isHeatingWhenItsColdAsFuck() {
+		return heatingWhenItsColdAsFuck;
 	}
-	public void setAirConditionType(String airConditionType) {
-		this.airConditionType = airConditionType;
+	public void setAcType(String acType) {
+		this.acType = acType;
 	}
-	public void setAirConditionPower(int airConditionPower) {
-		this.airConditionPower = airConditionPower;
+	public void setAcPower(int acPower) {
+		this.acPower = acPower;
 	}
-	public void setInverter(boolean inverter) {
-		this.inverter = inverter;
+	public void setSquareMeters(int squareMeters) {
+		this.squareMeters = squareMeters;
 	}
-	public void setSquaredMeters(int squaredMeters) {
-		this.squaredMeters = squaredMeters;
+	public void setMultipleRooms(boolean multipleRooms) {
+		this.multipleRooms = multipleRooms;
 	}
-	public void setHeatingMultipleRooms(boolean heatingMultipleRooms) {
-		this.heatingMultipleRooms = heatingMultipleRooms;
+	public void setMountable(boolean mountable) {
+		this.mountable = mountable;
 	}
-	public void setWallMountingEnabled(boolean wallMountingEnabled) {
-		this.wallMountingEnabled = wallMountingEnabled;
+	public void setHasInverter(boolean hasInverter) {
+		this.hasInverter = hasInverter;
 	}
-	public void setHeatingBelowMinus5(boolean heatingBelowMinus5) {
-		this.heatingBelowMinus5 = heatingBelowMinus5;
+	public void setHeatingAmount(String heatingAmount) {
+		this.heatingAmount = heatingAmount;
 	}
-	public void setHeatingUse(String heatingUse) {
-		this.heatingUse = heatingUse;
+	public void setHeatingWhenItsColdAsFuck(boolean heatingWhenItsColdAsFuck) {
+		this.heatingWhenItsColdAsFuck = heatingWhenItsColdAsFuck;
 	}
 	@Override
 	public String toString() {
-		return "AirConditioner [" + (airConditionType != null ? "airConditionType=" + airConditionType + ", " : "")
-				+ "airConditionPower=" + airConditionPower + ", inverter=" + inverter + ", squaredMeters="
-				+ squaredMeters + ", heatingMultipleRooms=" + heatingMultipleRooms + ", wallMountingEnabled="
-				+ wallMountingEnabled + ", heatingBelowMinus5=" + heatingBelowMinus5 + ", "
-				+ (heatingUse != null ? "heatingUse=" + heatingUse : "") + "]";
+		return "AirConditioner [" + (acType != null ? "acType=" + acType + ", " : "") + "acPower=" + acPower
+				+ ", mountable=" + mountable + ", hasInverter=" + hasInverter + "]";
 	}
 	
-
 	
 	
 	

@@ -1,106 +1,96 @@
 package com.sample
  
 import com.sample.AirConditioner;
- 
+
+//Setting the power to 9k for appropriate flats
+rule "Rule01"
+    when
+	a : AirConditioner(squareMeters<=50 && multipleRooms==false && acPower==0);
+    then
+    System.out.println("Setting the power to 9000");
+	a.setAcPower(9000);
+	update(a)
+end
+
+//Setting the power to 12k for appropriate flats
+rule "Rule02"
+    when
+	a : AirConditioner(squareMeters<=50 && multipleRooms==true && acPower==0);
+    then
+    System.out.println("Setting the power to 12000");
+	a.setAcPower(12000);
+	update(a)
+end
+
+//Setting the power to 12k for appropriate flats
+rule "Rule03"
+    when
+	a : AirConditioner(squareMeters>50 && squareMeters<75 && multipleRooms==false && acPower==0);
+    then
+    System.out.println("Setting the power to 12000");
+	a.setAcPower(12000);
+	update(a)
+end
+
+//Setting the power to 18k for appropriate flats
 rule "Rule04"
     when
-       k: AirConditioner(squaredMeters<=50 && heatingMultipleRooms==false &&
-       airConditionPower==0)
+	a : AirConditioner(squareMeters>50 && squareMeters<75 && multipleRooms==true && acPower==0);
     then
-		k.setAirConditionPower(9000);
-		update(k)
+    System.out.println("Setting the power to 18000");
+	a.setAcPower(18000);
+	update(a)
 end
 
+//Setting the power to 18k for appropriate flats
 rule "Rule05"
     when
-       k: AirConditioner(squaredMeters<=50 && heatingMultipleRooms==true &&
-       airConditionPower==0)
+	a : AirConditioner(squareMeters>=75 && acPower==0);
     then
-		k.setAirConditionPower(12000);
-		update(k);
+    System.out.println("Setting the power to 18000");
+	a.setAcPower(18000);
+	update(a)
 end
 
+//Setting the AC type to Movable
 rule "Rule06"
     when
-       k: AirConditioner(squaredMeters>50 && squaredMeters<75 && 
-       heatingMultipleRooms==false &&
-       airConditionPower==0)
+	a : AirConditioner(multipleRooms==true && mountable==false && acType=="Mounted");
     then
-		k.setAirConditionPower(12000);
-		update(k);
+    System.out.println("Setting AC Type to Movable");
+	a.setAcType("Movable");
+	update(a)
 end
 
+//Setting the AC type to Window-Mounted
 rule "Rule07"
     when
-       k: AirConditioner(squaredMeters>50 && squaredMeters<75 && 
-       heatingMultipleRooms==true &&
-       airConditionPower==0)
+	a : AirConditioner(multipleRooms==false && mountable==false && acType=="Mounted");
     then
-		k.setAirConditionPower(18000);
-		update(k);
+    System.out.println("Setting AC Type to Window-Mounted");
+	a.setAcType("Window-Mounted");
+	update(a)
 end
 
+//Installing the inverter
 rule "Rule08"
     when
-       k: AirConditioner(squaredMeters>=75 && 
-       airConditionPower==0)
+	a : AirConditioner(hasInverter==false && (heatingAmount=="Equally" || heatingAmount=="Mostly"));
     then
-		k.setAirConditionPower(18000);
-		update(k);
+    System.out.println("Installing the inverter");
+	a.setHasInverter(true);
+	update(a)
 end
 
+//Installing the inverter
 rule "Rule09"
     when
-       k: AirConditioner(heatingMultipleRooms==true && 
-       wallMountingEnabled==false && airConditionType==null)
+	a : AirConditioner(hasInverter==false && heatingWhenItsColdAsFuck==true);
     then
-		k.setAirConditionType("Pokretni");
-		update(k);
+    System.out.println("Installing the inverter");
+	a.setHasInverter(true);
+	update(a)
 end
-
-rule "Rule10"
-    when
-       k: AirConditioner(heatingMultipleRooms==false && 
-       wallMountingEnabled==false && airConditionType==null)
-    then
-		k.setAirConditionType("Prozorni");
-		update(k);
-end
-
-rule "Bonus"
-    when
-       k: AirConditioner(wallMountingEnabled==true && airConditionType==null)
-    then
-		k.setAirConditionType("Obicni");
-		update(k);
-end
-
-rule "Rule11-1"
-    when
-       k: AirConditioner((heatingUse=="Podjednako" || 
-       heatingUse=="Pretezno") && inverter==false)
-    then
-		k.setInverter(true);
-		update(k);
-end
-
-rule "Rule11-2"
-    when
-       k: AirConditioner(heatingUse=="Retko" && inverter==false)
-    then
-		k.setInverter(false);
-		update(k);
-end
-
-rule "Rule12"
-    when
-       k: AirConditioner(heatingBelowMinus5==true && inverter==false)
-    then
-		k.setInverter(true);
-		update(k);
-end
-
-
 
 
 
