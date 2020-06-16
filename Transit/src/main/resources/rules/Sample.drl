@@ -7,9 +7,7 @@ rule "Rule01"
         t : Transit (solution.contains("Walking")==false && distance<2.5)
     then
     	System.out.println("Adding Walking as a a solution");
-    	java.util.ArrayList<String> newList = t.getSolution();
-    	newList.add("Walking");
-		t.setSolution(newList);
+		t.getSolution().add("Walking");
         update(t);
 end
 
@@ -18,9 +16,7 @@ rule "Rule02"
         t : Transit (solution.contains("Regular Scooter")==false && distance<2.5 && terain=="Flat")
     then
     	System.out.println("Adding Regular Scooter as a a solution");
-    	java.util.ArrayList<String> newList = t.getSolution();
-    	newList.add("Regular Scooter");
-		t.setSolution(newList);
+    	t.getSolution().add("Regular Scooter");
         update(t);
 end
 
@@ -30,10 +26,8 @@ rule "Rule03"
         solution.contains("Bike")==false && distance>=2.5 && distance<5 && terain=="Flat")
     then
     	System.out.println("Adding Regular Scooter and Bike as a a solution");
-    	java.util.ArrayList<String> newList = t.getSolution();
-    	newList.add("Regular Scooter");
-    	newList.add("Bike");
-		t.setSolution(newList);
+    	t.getSolution().add("Regular Scooter");
+    	t.getSolution().add("Bike");
         update(t);
 end
 
@@ -42,9 +36,7 @@ rule "Rule04"
         t : Transit (solution.contains("Bike")==false && distance>=2.5 && distance<5 && terain=="Rocky" && wantsTraining==true)
     then
     	System.out.println("Adding Bike as a a solution");
-    	java.util.ArrayList<String> newList = t.getSolution();
-    	newList.add("Bike");
-		t.setSolution(newList);
+    	t.getSolution().add("Bike");
         update(t);
 end
 
@@ -54,9 +46,7 @@ rule "Rule05"
         distance>=2.5 && distance<5 && terain=="Rocky" && wantsTraining==false)
     then
     	System.out.println("Adding Electrical Scooter as a a solution");
-    	java.util.ArrayList<String> newList = t.getSolution();
-    	newList.add("Electrical Scooter");
-		t.setSolution(newList);
+    	t.getSolution().add("Electrical Scooter");
         update(t);
 end
 
@@ -66,9 +56,7 @@ rule "Rule06"
         distance>=5 && distance<8 && wantsTraining==true)
     then
     	System.out.println("Adding Bike as a a solution");
-    	java.util.ArrayList<String> newList = t.getSolution();
-    	newList.add("Bike");
-		t.setSolution(newList);
+    	t.getSolution().add("Bike");
         update(t);
 end
 
@@ -78,9 +66,7 @@ rule "Rule07"
         distance>=5 && distance<8 && wantsTraining==false && hasMoney==false)
     then
     	System.out.println("Adding Electrical Scooter as a a solution");
-    	java.util.ArrayList<String> newList = t.getSolution();
-    	newList.add("Electrical Scooter");
-		t.setSolution(newList);
+    	t.getSolution().add("Electrical Scooter");
         update(t);
 end
 
@@ -90,9 +76,7 @@ rule "Rule08"
         distance>=5 && distance<8 && wantsTraining==false && hasMoney==true)
     then
     	System.out.println("Adding Electrical Bike as a a solution");
-    	java.util.ArrayList<String> newList = t.getSolution();
-    	newList.add("Electrical Bike");
-		t.setSolution(newList);
+    	t.getSolution().add("Electrical Bike");
         update(t);
 end
 
@@ -102,9 +86,7 @@ rule "Rule09"
         distance>=8  &&  hasMoney==false)
     then
     	System.out.println("Adding Electrical Scooter as a a solution");
-    	java.util.ArrayList<String> newList = t.getSolution();
-    	newList.add("Electrical Scooter");
-		t.setSolution(newList);
+    	t.getSolution().add("Electrical Scooter");
         update(t);
 end
 
@@ -114,9 +96,7 @@ rule "Rule10"
         distance>=8  &&  hasMoney==true)
     then
     	System.out.println("Adding Electrical Bike as a a solution");
-    	java.util.ArrayList<String> newList = t.getSolution();
-    	newList.add("Electrical Bike");
-		t.setSolution(newList);
+    	t.getSolution().add("Electrical Bike");
         update(t);
 end
 
