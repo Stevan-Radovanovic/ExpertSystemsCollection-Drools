@@ -3,55 +3,40 @@ package com.sample
 import com.sample.Car;
  
 rule "Rule01"
-no-loop
     when
-    c : Car(hasLicense==false || age<19 || yearsWithLicense<1)
+    c : Car((hasLicense==false || age<19 || yearsWithLicense<1) && canRent==true)    
     then
+    System.out.println("Setting CanRent to false");
     c.setCanRent(false);
     update(c);
 end
 
 rule "Rule02"
-no-loop
     when
-    c : Car(hasLicense==true && age>=19 && yearsWithLicense>=1)
+    c : Car(canRent==true && yearsWithLicense<5 && mustLeaveDeposit==false)
     then
-    c.setCanRent(true);
+    System.out.println("Setting MustLeaveDeposit to true");
+    c.setMustLeaveDeposit(true);
     update(c);
 end
-
 
 rule "Rule03"
     when
-    c : Car(canRent==true && yearsWithLicense<5 && mustLeaveDeposit==null)
-    then
-    c.setMustLeaveDeposit("yes");
-    update(c);
-end
-
-rule "Rule03-2"
-    when
-    c : Car(canRent==true && yearsWithLicense>=5 && mustLeaveDeposit==null)
-    then
-    c.setMustLeaveDeposit("no");
-    update(c);
-end
-
-rule "Rule04"
-    when
-    c : Car(mustLeaveDeposit=="yes" && yearsWithLicense<=3
+    c : Car(mustLeaveDeposit==true && yearsWithLicense<=3
     && deposit==0)
     then
+    System.out.println("Setting Deposit to 50");
     c.setDeposit(50);
     update(c);
 end
 
 rule "Rule05"
     when
-    c : Car(mustLeaveDeposit=="yes" && yearsWithLicense>3
+    c : Car(mustLeaveDeposit==true && yearsWithLicense>3
   	&& yearsWithLicense<5
     && deposit==0)
     then
+    System.out.println("Setting Deposit to 30");    
     c.setDeposit(30);
     update(c);
 end
@@ -59,8 +44,9 @@ end
 rule "Rule06"
     when
     c : Car(canRent==true && yearsWithLicense<=2
-  	&& vehicleClass=="")
+  	&& vehicleClass==null)
     then
+    System.out.println("Setting Vehicle Class to A,B");  
     c.setVehicleClass("A B");
     update(c);
 end
@@ -69,17 +55,18 @@ rule "Rule07"
     when
     c : Car(canRent==true && yearsWithLicense>2
     && yearsWithLicense<5
-  	&& vehicleClass=="")
+  	&& vehicleClass==null)
     then
+    System.out.println("Setting Vehicle Class to A,B,C,D");
     c.setVehicleClass("A B C D");
     update(c);
 end
 
 rule "Rule08"
-no-loop
     when
-    c : Car(canRent==true && yearsWithLicense>=5 && vehicleClass=="")
+    c : Car(canRent==true && yearsWithLicense>=5 && vehicleClass==null)
     then
+    System.out.println("Setting Vehicle Class to A,B,C,D,E,F");
     c.setVehicleClass("A B C D E F");
     update(c);
 end

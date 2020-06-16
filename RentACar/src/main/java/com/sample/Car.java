@@ -5,10 +5,10 @@ public class Car {
 	private boolean hasLicense;
 	private int age;
 	private int deposit = 0;
-	private boolean canRent;
-	private String mustLeaveDeposit;
+	private boolean canRent = true;
+	private boolean mustLeaveDeposit;
 	private double yearsWithLicense;
-	private String vehicleClass="";
+	private String vehicleClass;
 
 
 	public boolean isHasLicense() {
@@ -35,10 +35,10 @@ public class Car {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	public String getMustLeaveDeposit() {
+	public boolean isMustLeaveDeposit() {
 		return mustLeaveDeposit;
 	}
-	public void setMustLeaveDeposit(String mustLeaveDeposit) {
+	public void setMustLeaveDeposit(boolean mustLeaveDeposit) {
 		this.mustLeaveDeposit = mustLeaveDeposit;
 	}
 	public void setDeposit(int deposit) {

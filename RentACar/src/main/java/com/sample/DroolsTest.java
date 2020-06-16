@@ -18,11 +18,10 @@ public class DroolsTest {
 
         	
         	Car c = new Car();
-        	c.setAge(22);
+        	c.setAge(28);
         	c.setHasLicense(true);
-        	c.setYearsWithLicense(6);
-        	
-      
+        	c.setYearsWithLicense(3);
+        	     
             kSession.insert(c);
             
             kSession.fireAllRules();
