@@ -7,6 +7,13 @@ public class Car {
 	private double insurancePrice;
 	private int newPremiumGrade;
 	private int oldPremiumGrade;
+	private boolean newPremiumGradeSet;
+	public boolean isNewPremiumGradeSet() {
+		return newPremiumGradeSet;
+	}
+	public void setNewPremiumGradeSet(boolean newPremiumGradeSet) {
+		this.newPremiumGradeSet = newPremiumGradeSet;
+	}
 	private int accidents;
 	private double finalPrice;
 	public int getMotorPower() {

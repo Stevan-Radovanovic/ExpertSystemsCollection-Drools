@@ -19,7 +19,8 @@ public class DroolsTest {
         	Car car = new Car();
         	
         	car.setMotorPower(50);
-        	    	
+        	car.setOldPremiumGrade(11); 
+        	car.setAccidents(2);
         	
             kSession.insert(car);
             kSession.fireAllRules();

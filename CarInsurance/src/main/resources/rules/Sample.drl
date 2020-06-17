@@ -55,32 +55,47 @@ end
 //Lowering new premium grade
 rule "Rule06"
     when
-    c: Car(oldPremiumGrade!=0 && newPremiumGrade==0 && accidents==0)
+    c: Car(oldPremiumGrade!=0 && newPremiumGradeSet==false && accidents==0)
     then
     System.out.println("Lowering New Premium Grade");
-    if(c.getOldPremiumGrade()==1) 
-    	c.setNewPremiumGrade(1);
-    else
-    	c.setNewPremiumGrade(c.getOldPremiumGrade()-1);
+	c.setNewPremiumGradeSet(true);
+    c.setNewPremiumGrade(c.getOldPremiumGrade()-1);
     update(c);
 end
 
 //Raising new premium grade
 rule "Rule07"
     when
-    c: Car(oldPremiumGrade!=0 && newPremiumGrade==0 && accidents!=0)
+    c: Car(oldPremiumGrade!=0 && newPremiumGradeSet==false && accidents!=0)
     then
     System.out.println("Raising New Premium Grade");
-    int helperVariable = c.getOldPremiumGrade() + c.getAccidents()*3;
-    if(helperVariable>12) 
-    	c.setNewPremiumGrade(12);
-    else
-    	c.setNewPremiumGrade(helperVariable);
+    c.setNewPremiumGradeSet(true);
+    c.setNewPremiumGrade(c.getOldPremiumGrade() + c.getAccidents()*3);
     update(c);
 end
 
-//Calculating final price #1
+//Post-fixing New Premium Grade #1
 rule "Rule08"
+    when
+    c: Car(newPremiumGrade==0 && newPremiumGradeSet==true)
+    then
+    System.out.println("Fixing New Premium Grade");
+    c.setNewPremiumGrade(1);
+    update(c);
+end
+
+//Post-fixing New Premium Grade #2
+rule "Rule09"
+    when
+    c: Car(newPremiumGrade>12 && newPremiumGradeSet==true)
+    then
+    System.out.println("Fixing New Premium Grade");
+    c.setNewPremiumGrade(12);
+    update(c);
+end
+ 
+//Calculating final price #1
+rule "Rule10"
     when
     c: Car(finalPrice==0 && newPremiumGrade<=4)
     then
@@ -91,7 +106,7 @@ rule "Rule08"
 end
 
 //Calculating final price #2
-rule "Rule09"
+rule "Rule11"
     when
     c: Car(finalPrice==0 && newPremiumGrade>=5)
     then
